@@ -10,38 +10,38 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   }
   console.log('Connected to mongoDB server')
 
-  // db.collection('Todos').insertOne( {
-  //   text: 'Someting todo',
-  //   completed: false
+  db.collection('Todos').insertOne( {
+    text: 'eat lunch',
+    completed: false
+  }, (err,res) => {
+    if (err) {
+      return console.log('Unable to insert todo', err)
+    }
+    console.log( JSON.stringify( res.ops, undefined, 2 ))
+  })
+
+
+  // db.collection('Users').insertOne( {
+  //   name: 'albert',
+  //   age: 50,
+  //   location: 'lleida'
   // }, (err,res) => {
   //   if (err) {
-  //     return console.log('Unable to insert todo', err)
+  //     return console.log('Unble to insert user')
   //   }
-  //   console.log( JSON.stringify( res.ops, undefined, 2 ))
+  //   console.log( res.ops[0]._id.getTimestamp() )
   // })
   //
-
-  db.collection('Users').insertOne( {
-    name: 'albert',
-    age: 50,
-    location: 'lleida'
-  }, (err,res) => {
-    if (err) {
-      return console.log('Unble to insert user')
-    }
-    console.log( res.ops[0]._id.getTimestamp() )
-  })
-
-  db.collection('Users').insertOne( {
-    name: 'ferran',
-    age: 56,
-    location: 'bcn'
-  }, (err,res) => {
-    if (err) {
-      return console.log('Unble to insert user')
-    }
-    console.log( res.ops[0]._id.getTimestamp() )
-  })
+  // db.collection('Users').insertOne( {
+  //   name: 'ferran',
+  //   age: 56,
+  //   location: 'bcn'
+  // }, (err,res) => {
+  //   if (err) {
+  //     return console.log('Unble to insert user')
+  //   }
+  //   console.log( res.ops[0]._id.getTimestamp() )
+  // })
 
 
   db.close()
