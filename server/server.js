@@ -35,7 +35,7 @@ app.get('/todos/:id', (req,res) => {
     },
     error => res.status(400).send(error)
   )
-  
+
 })
 
 app.post('/todos', (req,res) => {
@@ -50,7 +50,7 @@ app.post('/todos', (req,res) => {
 
 
 app.listen( port, () => {
-  console.log(`Server up in port ${port}`)
+  console.log(`Server up at port ${port}`)
 })
 
 module.exports = {
