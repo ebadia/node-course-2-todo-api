@@ -20,23 +20,6 @@ app.get('/todos', (req,res) => {
   )
 })
 
-app.get('/todos/:id', (req,res) => {
-
-  if ( !ObjectID.isValid(req.params.id) ) {
-    return res.status(404).send()
-  }
-
-  Todo.findById(req.params.id).then(
-    todo => {
-      if (!todo){
-        return res.status(404).send()
-      }
-      res.send(todo)
-    },
-    error => res.status(400).send(error)
-  )
-
-})
 
 app.post('/todos', (req,res) => {
   var todo = new Todo({
@@ -47,6 +30,44 @@ app.post('/todos', (req,res) => {
     error => res.status(400).send(error)
   )
 })
+
+app.get('/todos/:id', (req,res) => {
+
+  if ( !ObjectID.isValid(req.params.id) ) {
+    return res.status(404).send()
+  }
+
+  Todo.findById(req.params.id).then(
+    todo => {
+      if (!todo) {
+        return res.status(404).send()
+      }
+      res.send(todo)
+    },
+    error => res.status(400).send(error)
+  )
+
+})
+
+app.delete('/todos/:id', (req,res) => {
+
+  if( !ObjectID.isValid(req.params.id) ){
+    return res.status(404).send()
+  }
+
+  Todo.findByIdAndRemove(req.params.id).then(
+    todo => {
+      if (!todo) {
+        return res.status(404).send()
+      }
+      res.send(todo)
+    },
+    error => res.status(400).send(error)
+  )
+
+})
+
+
 
 
 app.listen( port, () => {
