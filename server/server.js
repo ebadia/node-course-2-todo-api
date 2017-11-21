@@ -10,8 +10,13 @@ var app = express()
 
 app.use( bodyParser.json() )
 
-app.get('/', (req,res) => {
-  res.send( 'Hello mon!')
+app.get('/todos', (req,res) => {
+  Todo.find().then(
+    todos => {
+      res.send({todos})
+    },
+    error => res.status(400).send(error)
+  )
 })
 
 app.post('/todos', (req,res) => {
