@@ -125,3 +125,57 @@ describe('GET /todos:id', () => {
   })
 
 })
+
+describe('DELETE /todos:id', () => {
+
+  // id = '5a142517d2c359dd2f0ae1fd'
+
+  it('should return 404 if Invalid ID', (done) => {
+
+    let id = '123'
+
+    request(app)
+      .delete(`/todos/${id}`)
+      .expect(404)
+      .end(done)
+
+  })
+
+  it('should return 404 if ID Not Found', (done) => {
+
+    let id = new ObjectID().toHexString()
+
+    request(app)
+      .delete(`/todos/${id}`)
+      .expect(404)
+      .end(done)
+
+  })
+
+  it('should return todo deleted doc', (done) => {
+
+    let id = todos[0]._id.toHexString()
+
+    request(app)
+    .delete(`/todos/${id}`)
+    .expect(200)
+    .expect( res => {
+      expect( res.body.text ).toBe(todos[0].text)
+    })
+    .end( (err,res) => {
+      if (err) {
+        return done(err)
+      }
+
+      Todo.findById(id).then(
+        todo => {
+          expect(todo).toNotExist()
+          done()
+        }
+      ).catch( e => done(e) )
+
+    })
+
+  })
+
+})

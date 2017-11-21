@@ -68,8 +68,6 @@ app.delete('/todos/:id', (req,res) => {
 })
 
 
-
-
 app.listen( port, () => {
   console.log(`Server up at port ${port}`)
 })
