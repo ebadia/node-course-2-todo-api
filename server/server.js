@@ -19,6 +19,15 @@ app.get('/todos', (req,res) => {
   )
 })
 
+app.get('/todos/:id', (req,res) => {
+  Todo.findById(id).then(
+    todo => {
+      res.send(todo)
+    },
+    error => res.status(400).send(error)
+  )
+})
+
 app.post('/todos', (req,res) => {
   var todo = new Todo({
     text: req.body.text
