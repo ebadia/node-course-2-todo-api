@@ -8,6 +8,7 @@ const _ = require('lodash')
 var { mongoose } = require('./db/mongoose')
 var { Todo } = require('./models/todo')
 var { User } = require('./models/user')
+var { authenticate } = require('./middleware/authenticate')
 
 const port = process.env.PORT
 var app = express()
@@ -115,6 +116,10 @@ app.patch('/todos/:id', (req,res) => {
     error => res.status(400).send(error)
   )
 
+})
+
+app.get('/users/me', authenticate, (req,res) => {
+  res.send(req.user)
 })
 
 
